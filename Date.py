@@ -28,9 +28,9 @@
 class Date:
    
     def __init__(self, year, month, day):        
-        self.year  = year
+        self.year = year
         self.month = month
-        self.day   = day
+        self.day = day
 
 
 # In[5]:
@@ -367,7 +367,7 @@ date
 # In[5]:
 
 
-date.__day  =50
+date.__day = 50
 
 
 # In[9]:
@@ -450,14 +450,16 @@ class Date:
     DAY_OF_MONTH = ((31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31), # 
                     (31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)) #
    
-    def __init__(self, *args):
-        pass
+    def __init__(self, year, month, day):
+        self.year = year
+        self.month = month
+        self.day = day
         
     def __str__(self):
         pass
     
     def __repr__(self):
-        pass
+        return f'Date({self.year}...)'
     
     @staticmethod
     def is_leap_year(year):
@@ -469,7 +471,7 @@ class Date:
     
     @property
     def date(self):
-        pass
+        return self.__str__
     
     @classmethod
     def __is_valid_date(cls, *args):
@@ -482,7 +484,54 @@ class Date:
     @property
     def day(self):
         pass
-            
+
+    @day.setter
+    def day(self, day):
+        if isinstance(day, int):
+            self.__day = day
+        else:
+            raise ValueError
+
+# class A_without_property:
+#     def __init__(self, a):
+#         self.__a = a
+#
+#     def get_a(self):
+#         return  self.__a
+#
+#     def set_a(self, a):
+#         self.__a = a
+#
+# a_without = A_without_property(1)
+# a_without.a # выводит ошибку
+#
+# a_from_a_with = a_with.a #
+#
+#
+# class A_without_property:
+#     def __init__(self, a):
+#         self.__a = a
+#
+#     @property
+#     def a(self):
+#         return self.__a
+#
+#     @a.setter
+#     def a(self, a):
+#         print('Call setter')
+#         self.__a = a
+#
+# a_with = A_without_property(1)
+
+    def set_a(self, a):
+        self.__a = a
+
+
+# a_without = A_without_property(1)
+# a_without.a  # выводит ошибку
+#
+# a_from_a_with = a_with.a
+
     @property
     def month(self):
         pass
@@ -490,6 +539,8 @@ class Date:
     @property
     def year(self):
         pass
+
+
     
     def add_day(self, day):
         pass
@@ -504,3 +555,68 @@ class Date:
     def date2_date1(date2, date1):
         pass
 
+    def date_to_days(self):
+        return self.__year * 365 + self.__month * 30 + self.__day
+
+    def __eq__(self, other):
+        #self == other
+        if (self.day == other.day) and  \
+            (self.month == other.month) and \
+            (self.day == self.day)
+            return True
+        else:
+            return False
+
+    def __lt__(self, other):
+        if self.year < other.year:
+            return True
+        elif self.year > other.year:
+            return False
+        else:
+            if self.month < other.month:
+                return True
+            elif self.month > other.month:
+                return False
+            else:
+                if self.day < other.day:
+                    return True
+                elif self.day >= other.day:
+                    return False
+
+    def __add__(self, other): # __radd__ также можно использовать
+        if isinstance(other, int):
+            raise ValueError
+        else:
+            self.__day += other
+
+d1 = Date(2020, 2, 7)
+d2 = Date(2020, 2, 6)
+
+d1 + 5
+print(d1)
+
+
+d1 = Date(2020, 2, 7)
+d2 = Date(2020, 2, 6)
+
+print(d1 == d2)
+print(d1.date_to_days() - d2.date_to_days())
+
+
+
+
+# class A:
+#     b_class_attr = 1
+#     def __init__(self):
+#         b_obj_attr = 2
+#     def b_method(self):
+#
+#     @property
+#     def b_property(self)
+#         return self.__b
+#
+#     a_obj = A()
+#
+#     A.b_class_attr # атрибут класса
+#     a_obj.b_obj_attr # атрибут объекта
+#     a_obj.b_property # свойство
